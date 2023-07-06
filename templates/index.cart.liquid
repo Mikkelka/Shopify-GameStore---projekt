@@ -1,0 +1,33 @@
+{% layout none %}
+
+<div class="cart-con__items">
+  <h2 class="cart-titel">{{ 'cart.text.cart' | t: productsCount: cart.item_count }}</h2>
+  {% for item in cart.items %}
+    {% render 'product-card_cart', item: item %}
+  {% endfor %}
+</div>
+
+<div class="cart-con__check">
+  <h2 class="cart-titel">Summary</h2>
+  <div class="cart-con__check-out">
+    <h3>
+      <span>total price :</span>
+      {{ cart.total_price | money_without_trailing_zeros }}
+    </h3>
+
+    <form
+      action="/cart"
+      class="cart-drawer__inner"
+      method="post"
+      novalidate
+    >
+      <button
+        class="cart-submit-btn"
+        name="checkout"
+        type="submit"
+      >
+        Checkout
+      </button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<style>
+  .main-dec {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .main-dec__image {
+    align-self: center;
+  }
+
+  .main-dec__image img {
+    width: 100%;
+    padding: 0 2rem;
+  }
+
+  .main-dec__text {
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 140%;
+  }
+
+  .main-dec__text * {
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  @media screen and (max-width: 780px) {
+    .main-dec {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<div class="container">
+  <div class="main-dec">
+    <div class="main-dec__image">
+      <img src="{{ product.metafields.custom.description_image | image_url: width: 1000 }}" alt="">
+    </div>
+    <div class="main-dec__text">
+      {{ product.description }}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Main Dec",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "type",
+      "name": "name",
+      "settings": []
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Main Dec"
+    }
+  ]
+}
+{% endschema %}

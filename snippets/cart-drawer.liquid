@@ -1,0 +1,84 @@
+{{ 'cart-drawer.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign saving = 0
+  assign originalTotal = 0
+
+  for item in cart.items
+    assign lineItemsavingTotal = 0
+    assign lineItemOriginalTotal = 0
+
+    if item.variant.compare_at_price > item.variant.price
+      assign savePrItem = item.variant.compare_at_price | minus: item.variant.price
+      assign lineItemsavingTotal = savePrItem | times: item.quantity
+    endif
+
+    assign lineItemOriginalTotal = item.variant.compare_at_price | times: item.quantity
+
+    assign saving = saving | plus: lineItemsavingTotal
+    assign originalTotal = originalTotal | plus: lineItemOriginalTotal
+  endfor
+%}
+
+{% comment %} HTML {% endcomment %}
+
+<div class="cart-btn">
+  <i class="fa-solid fa-xl fa-cart-shopping"></i>
+</div>
+
+<div class="cart-overlay cart-overlay-none"></div>
+
+<drawer-el class="cart-drawer">
+  <div class="cart-drawer__inner">
+    {% comment %} Header {% endcomment %}
+    <div class="cart-drawer__head">
+      <div>CART ({{ cart.item_count }})</div>
+      <div class="cart_close">
+        <i class="fa-solid fa-xmark"></i>
+      </div>
+    </div>
+
+    {% comment %} Content {% endcomment %}
+
+    {% render 'free-gift' %}
+
+    <div class="cart-drawer__content">
+      {% for item in cart.items %}
+        {% render 'cart-drawer_item', item: item, forloop: forloop %}
+      {% endfor %}
+    </div>
+
+    {% comment %} Footer {% endcomment %}
+    <div class="cart-drawer__fot">
+      <div class="cart-drawer__fot__price-con price-con__orginal">
+        <span> Orginal price </span>
+        <span>{{ originalTotal | money }}</span>
+      </div>
+
+      <div class="cart-drawer__fot__price-con price-con__savings">
+        <span> Saving </span>
+        <span>{{ saving | money }}</span>
+      </div>
+
+      <div class="cart-drawer__fot__price-con price-con__total">
+        <span> Total </span>
+        <span>{{ cart.total_price | money }}</span>
+      </div>
+
+      <form
+        action="/cart"
+        class="cart-drawer__inner"
+        method="post"
+        novalidate
+      >
+        <button
+          class="cart-submit-btn"
+          name="checkout"
+          type="submit"
+        >
+          Checkout
+        </button>
+      </form>
+    </div>
+  </div>
+</drawer-el>

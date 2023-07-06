@@ -1,0 +1,55 @@
+{
+  "general": {
+    "404": {
+      "title": "Not found",
+      "subtext_html": "The page you were looking for does not exist",
+      "back_text": "Back to the homepage"
+    },
+    "free_gift": {
+      "missing_html": "You are missing {{ dif }} to get a free gift",
+      "free_gift_text": ""
+    }
+  },
+  "product-card-alt": {
+    "card-dropdown": {
+      "select_var": "Select Size",
+      "select_more_var": "Multiple options available",
+      "quickadd_btn": "Quick Shop",
+      "quickadd_btn_more_var": "View More",
+      "dropdown_head_title": "Select Size",
+      "dropdown_guide": "Guide"
+    }
+  },
+  "login_section": {
+    "login_form": {
+      "login_knap": "Sign in",
+      "ny_bruger_tekst": "New user? Click here",
+      "ny_bruger_link_tekst": "Sign up"
+    },
+    "opret_bruger": {
+      "title": "Create Account",
+      "forste_navn": "First Name",
+      "sidste_navn": "Last name",
+      "kodeord": "Password",
+      "opret_knap": "Create",
+      "login_tekst": "Allready user? Click here",
+      "login_link": "Login"
+    }
+  },
+  "searchresults": {
+    "searchPage": {
+      "title": "Search Results"
+    }
+  },
+  "cart": {
+    "text": {
+      "cart": "Cart ({{productsCount}}) "
+    }
+  },
+  "footer": {
+    "text": {
+      "footer-text": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      "copy": "All Rights Reserved {{year}}"
+    }
+  }
+}

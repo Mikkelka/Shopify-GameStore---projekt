@@ -1,0 +1,259 @@
+{{ 'template-product.css' | asset_url | stylesheet_tag }}
+
+{% assign current_variant = product.selected_or_first_available_variant %}
+
+<div class="product-main">
+  <div class="product-banner">
+    <img src=" {{ product.metafields.custom.product_banner | image_url: width: 2000  }} " alt="">
+  </div>
+  <div class="container">
+    <div class="porudct-con">
+      <div class="product-image">
+        <img src="{{ product.featured_image | image_url: width: 1000 }}" alt="">
+      </div>
+
+      <div class="product-buy-con">
+        <h1 class="product-buy-con__title">
+          {{ product.title }}
+          {% unless product.first_available_variant.title == 'Default Title' %}
+            - <span data-variant-name> {{ product.first_available_variant.title }} </span>
+          {% endunless %}
+        </h1>
+
+        <div class="product-buy-con__cta">
+          <form
+            class="product-buy-con__form"
+            action="/cart/add"
+            id="AddToCartForm"
+            method="post"
+          >
+            <input type="hidden" class="butBtnId" name="id" value="{{ product.variants.first.id }}">
+            <input type="submit" value="Buy now" class="product-buy-con__buy">
+
+            {% comment %} Quick-add {% endcomment %}
+            <button
+              type="submit"
+              value="Add"
+              class="product-buy-con__add"
+              data_productId="{{ product.first_available_variant.id }}"
+              class="product-buy-con__add"
+            >
+              <i class="fa-solid fa-xl fa-cart-shopping"></i>
+            </button>
+          </form>
+
+          {% comment %} price {% endcomment %}
+
+          <div class="product-buy-con__price">
+            <span data-current-variant-price>
+              {{ current_variant.price | money_without_trailing_zeros }}
+            </span>
+
+            <span data-original-variants-price>
+              {{ current_variant.compare_at_price | money_without_trailing_zeros }}
+            </span>
+
+            {% if product.compare_at_price > product.price %}
+              {% render 'savings', product: product %}
+            {% endif %}
+          </div>
+        </div>
+
+        <div>
+          <!-- form - not needed here bc we dont use the add to cart btn -->
+
+          <form action="/cart/add" enctype="multipart/form-data" id="AddToCartForm" method="post">
+            <!-- loop all options from the product -->
+            {% for product_option in product.options_with_values %}
+              <label>
+                <!-- option name -->
+                {% comment %} {{ product_option.name }} {% endcomment %}
+                <!-- dropdown of every option verients -->
+                <select data-varient-select id="productSelect">
+                  {% for value in product_option.values %}
+                    <!-- is this one necessary ?? -->
+                    <option
+                      {% if product_option.selected_value == value %}
+                        selected
+                      {% endif %}
+                    >
+                      {{ value }}
+                    </option>
+                  {% endfor %}
+                </select>
+              </label>
+            {% endfor %}
+
+            <!-- HIDDEN Select -->
+            <!-- dropdown with product variants, the one used to select what variants to send to the cart -->
+            <select data-hidden="hidden" data-product-variants id="productSelect" name="id">
+              {% for variant in product.variants %}
+                <option value="{{ variant.id }}">
+                  <!-- only title, because its hidden -->
+                  {{ variant.title }}
+                </option>
+              {% endfor %}
+            </select>
+          </form>
+        </div>
+
+        <div class="product-buy-con__info">
+          <div class="product__stock">
+            <i class="fa-solid fa-boxes-stacked fa-xl" style="color: #ffffff;"></i>
+            <span data-product-stock>
+              {% if product.first_available_variant.inventory_quantity == 0 %}
+                Not in stock!
+              {% else %}
+                left in stock! {{ product.first_available_variant.inventory_quantity }}
+              {% endif %}
+            </span>
+          </div>
+
+          {% comment %} platform {% endcomment %}
+          <div class="product__platform">
+            <i class="fa-solid fa-gamepad fa-xl" style="color: #ffffff;"></i>
+            <span data-product-platform> {{ product.first_available_variant.metafields.custom.platform }} </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% render 'productJSON' %}
+
+{% schema %}
+{
+  "name": "Product Main",
+  "settings": []
+}
+{% endschema %}
+
+<script>
+  // need to clean this up
+  const productQuickBuy = document.querySelector('.product-buy-con__add');
+  const productBuyBtn = document.querySelector('.butBtnId');
+
+  const variantNameChnage = document.querySelector('[data-variant-name]');
+  const savingsLable = document.querySelector('.savings-lable');
+
+  // select elements
+  var productPlatform = document.querySelector('[data-product-platform]');
+  var productStock = document.querySelector('[data-product-stock]');
+  var productvar = document.querySelector('[data-product-variants]'); // hidden
+  var currentPrice = document.querySelector('[data-current-variant-price]');
+  var originalPrice = document.querySelector('[data-original-variants-price]');
+  var productBtn = document.querySelector('[data-form-add]');
+
+  // all options dropdowns
+  var varientSelecter = document.querySelectorAll('[data-varient-select]');
+
+  var jsonScript = document.querySelector('[data-product-script]');
+
+  // make js object
+  var VariantData = JSON.parse(jsonScript.innerText);
+
+  // #2
+  // function
+  var handleVariantChange = function () {
+    // empty array
+    var variantNames = [];
+
+    // loop each dropdown value
+    varientSelecter.forEach(function (element) {
+      // push "dropdown values" to array
+      variantNames.push(element.value);
+    });
+
+    // use join on array
+    var filteredVariable = variantNames.join(' / ');
+    // console.log(filteredVariable, 'filteredVariable');
+
+    // Set variant name
+    variantNameChnage.innerHTML = filteredVariable;
+
+    // productVariants from productJSON.liquid - [] Accessing Object Properties with the same name
+    var selectedVariant = VariantData[filteredVariable];
+    // console.log(selectedVariant, 'selectedVariant');
+
+    // call selectedVariant function with id parameter from selected object
+    selectvariantByID(selectedVariant.id);
+
+    // call validat function
+    validatVariant(selectedVariant);
+  };
+
+  // # 1
+  // loop all dropdowns (first)
+  varientSelecter.forEach(function (selectVariant) {
+    // listen to changes in "dropdown" and run function handleVariantChange
+    selectVariant.addEventListener('change', handleVariantChange);
+  });
+
+  // # 3
+  // function to get the
+  var selectvariantByID = function (id) {
+    // select dropdown option value (hidden one)
+    var selectedOption = productvar.querySelector("option[value='" + id + "']");
+    // console.log(selectedOption, 'selectedOption'); // show seleted id
+
+    // if dropdown have seleted id
+    if (selectedOption) {
+      // then set at value (id) to default = true
+      selectedOption.selected = true;
+    }
+  };
+
+  //
+  // function to format shopify money
+  var formatMoney = function (cents) {
+    // if cents is not a number - return false ( if compare price is not set on shopify )
+    if (typeof cents !== 'number') {
+      // return false (stop function here)
+      return false;
+    }
+
+    // divide with 100 to remove 180000 = 1800
+    var price = cents / 100;
+
+    // turn number into string & replace . with ,
+    var formattedPrice = price.toString().replace('.', ',') + ' kr';
+
+    // return
+    return formattedPrice;
+  };
+
+  //
+  // validat function
+  var validatVariant = function (variant) {
+    console.warn(variant, 'variant');
+    // if true
+    if (variant) {
+      // set id for btns
+      productQuickBuy.attributes.data_productId.value = variant.id;
+      productBuyBtn.value = variant.id;
+
+      // default onSale to false
+      var onSale = false;
+      // set current & compare price, from snippet
+      var priceInCents = variant.price;
+      var comparePriceInCents = variant.compare_price;
+
+      // call formatmoney function
+      var formattedPrice = formatMoney(priceInCents);
+      var formattedComparePrice = formatMoney(comparePriceInCents);
+
+      // clac savings (TESTING)
+      const testsavings = comparePriceInCents - priceInCents;
+      const savings = (testsavings / priceInCents) * 100;
+      const procenteses = Math.floor(savings) + '%';
+      savingsLable.innerHTML = procenteses;
+
+      // InnerHTML
+      currentPrice.innerHTML = formattedPrice;
+      originalPrice.innerHTML = formattedComparePrice;
+      productStock.innerHTML = variant.stock;
+      productPlatform.innerHTML = variant.platform;
+    }
+  };
+</script>

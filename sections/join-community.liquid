@@ -1,0 +1,126 @@
+<style>
+  .join-com {
+    background: radial-gradient(33.11% 106.18% at 58.1% 89.04%, rgba(18, 47, 89, 0.82) 22.4%, #0f0f1b 100%);
+    padding: 10rem 0;
+    clip-path: polygon(0 0, 100% 10%, 100% 100%, 0 90%);
+
+    margin: 3rem 0;
+  }
+
+  .join-com__title {
+    font-weight: 600;
+    font-size: 45px;
+  }
+
+  .join-com .container {
+    flex-direction: column;
+  }
+
+  .join-benefits {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .join-benefits__block {
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 147.02%;
+  }
+
+  .join-benefits__block strong,
+  .join-com__title strong {
+    color: #ff5400;
+  }
+
+  .join-image {
+    display: flex;
+    justify-content: center;
+  }
+
+  .join-image img {
+    width: 80%;
+  }
+
+  @media screen and (max-width: 780px) {
+    .join-com {
+      padding: 4rem 0;
+      clip-path: polygon(0 0, 100% 5%, 100% 100%, 0 95%);
+      margin: 0rem 0;
+    }
+
+    .join-com__title {
+      font-size: 30px;
+      padding-bottom: 0.5rem;
+    }
+
+    .join-benefits__block {
+      font-size: 20px;
+      line-height: 147.02%;
+    }
+  }
+</style>
+
+<div class="join-com">
+  <div class="container">
+    <span class="join-com__title">{{ section.settings.heading }}</span>
+    <div class="grid grid-2 gap-3 ai grid-1-m">
+      <div class="join-benefits">
+        {% for block in section.blocks %}
+          <div class="join-line"></div>
+
+          <div class="join-benefits__block">
+            {{ block.settings.inline }}
+          </div>
+
+          {% if forloop.last %}
+            <div class="join-line"></div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="join-image">
+        <img src="{{ section.settings.image | image_url: height: 700 }}" alt="">
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Join Community",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "Text",
+      "name": "benefits",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "inline",
+          "label": "Paragraph"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Join Community"
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+{% endjavascript %}

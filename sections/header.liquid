@@ -1,0 +1,166 @@
+<style>
+
+  .child__pil {
+    background-color: #2c2c2c;
+    border-radius: 20px;
+  }
+
+  .child__pil a {
+    align-items: center;
+    display: flex;
+    gap: .5rem;
+    padding: .5rem 1rem;
+  }
+
+  .header-container a {
+    color: white;
+    text-decoration: none;
+  }
+
+  .header__content {
+    align-items: center;
+    display: flex;
+    gap: 1rem;
+  }
+
+  .header__icons {}
+
+  .header__menu {
+    display: flex;
+    gap: .5rem;
+    position: relative;
+  }
+
+  .header__menu .child {
+    max-height: 0;
+    {% comment %}
+      max-height: 200px;
+    {% endcomment %}
+
+    position: absolute;
+    top: 100%;
+    right: -14rem;
+
+    background: rgba(25, 25, 32, .5);
+    border-radius: 0 0 20px 20px;
+
+    overflow: hidden;
+    z-index: 10;
+  }
+
+  .header__menu .child__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem;
+    width: 450px;
+  }
+
+  .header__menu__main-link {
+    display: flex;
+    position: relative;
+  }
+
+  .header__menu__main-link a,
+  .header__menu__main-link span {
+    padding: 1rem;
+  }
+
+  .header__menu__main-link:hover {
+    text-decoration: underline;
+  }
+
+  .header__menu__main-link:hover .child {
+    max-height: 200px;
+  }
+
+
+  .mobile-menu {
+    display: none;
+  }
+
+  @media screen and (max-width: 780px) {
+
+    .header__menu {
+      display: none;
+    }
+
+    .mobile-menu {
+      display: flex;
+    }
+
+  }
+</style>
+
+<header>
+  <div class="header-container">
+
+    {% comment %} mobile menu {% endcomment %}
+    {% render "mobile-menu" %}
+
+    <div class="header__logo">
+      <a href="/">
+        <h1>KeyZone</h1>
+      </a>
+    </div>
+
+    <div class="header__content">
+      <div class="header__menu">
+        {% for link in linklists["game-nav"].links -%}
+          {% if link.links != blank %}
+            <div class="header__menu__main-link">
+              <span class="main-link__title">
+                {{- link.title -}}
+              </span>
+
+              <div class="child">
+                <div class="child__inner">
+                  <div class="join-line"></div>
+                  {% for child_link in link.links %}
+                    <div class="child__pil">
+                      <a href="{{ child_link.url }}">
+                        <i class="fa-brands fa-steam"></i>
+                        {{ child_link.title }}</a>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+
+          {% else %}
+            <div class="header__menu__main-link">
+              {{ link.title | link_to: link.url }}
+            </div>
+          {% endif %}
+        {%- endfor %}
+      </div>
+
+      {% comment %}
+        <a class="header__icons" href="">
+        <i class="fa-solid fa-xl fa-circle-user"></i>
+        </a>
+      {% endcomment %}
+
+      {% unless template.name == "cart" %}
+        <div class="header__icons">
+          {% render "cart-drawer" %}
+        </div>
+      {% endunless %}
+    </div>
+  </div>
+</header>
+
+<script>
+  const menuItemsWithSubmenu = document.querySelectorAll ('.mobile-menu .has-submenu');
+
+  menuItemsWithSubmenu.forEach ( (item) => {
+    item.addEventListener ('click', (event) => {
+
+      // Check if the clicked element is the parent element with the 'has-submenu' class
+      if (event.target === item || event.target.parentNode === item) {
+        event.preventDefault ();
+        item.classList.toggle ('submenu-open');
+      }
+    });
+  });
+</script>

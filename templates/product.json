@@ -1,0 +1,33 @@
+{
+  "sections": {
+    "main": {
+      "type": "template-product",
+      "settings": {}
+    },
+    "52fcc859-d224-4f4c-a200-a81ff43a3455": {
+      "type": "product-system-gallery",
+      "settings": {}
+    },
+    "90ff950f-13ae-4106-b999-3ccbb98d304f": {
+      "type": "product-main-dec",
+      "settings": {}
+    },
+    "ae0b289c-bb87-4da8-9b3e-0be48172e57a": {
+      "type": "trending",
+      "settings": {
+        "heading": "Similar products",
+        "product_list": [
+          "god-of-war-ragnarok-ps5",
+          "marvels-spider-man-miles-morales",
+          "s-t-a-l-k-e-r-clear-sky"
+        ]
+      }
+    }
+  },
+  "order": [
+    "main",
+    "52fcc859-d224-4f4c-a200-a81ff43a3455",
+    "90ff950f-13ae-4106-b999-3ccbb98d304f",
+    "ae0b289c-bb87-4da8-9b3e-0be48172e57a"
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "general": {
+    "404": {
+      "title": "Side ikke fundet",
+      "subtext_html": "Den side du leder efter eksistere ikke",
+      "back_text": "Til forsiden"
+    },
+    "free_gift": {
+      "missing_html": "You are missing {{ dif }} to get a free gift",
+      "free_gift_text": ""
+    }
+  },
+  "footer": {
+    "text": {
+      "copy": "Alle rettigheder forbeholdes. {{year}}",
+      "footer-text": "Lorem ipsum dolor sit amet consectetur adipisicing elit DK."
+    }
+  },
+  "cart": {
+    "text": {
+      "cart": "Kurv ({{productsCount}})"
+    }
+  },
+  "search": {
+    "searchPage": {
+      "title": "Søgeresultater "
+    }
+  },
+  "searchresults": {
+    "searchPage": {
+      "title": "Søgeresultater"
+    }
+  },
+  "login_section": {
+    "login_form": {
+      "ny_bruger_tekst": "Ny bruger? Klik her",
+      "ny_bruger_link_tekst": "Opret",
+      "login_knap": "Log In"
+    },
+    "opret_bruger": {
+      "title": "Opret Bruger",
+      "forste_navn": "Første Navn",
+      "sidste_navn": "Sidste Navn",
+      "kodeord": "Kodeord",
+      "login_tekst": "Har du en bruger? Klik her",
+      "login_link": "Log In",
+      "opret_knap": "Opret"
+    }
+  },
+  "product-card-alt": {
+    "card-dropdown": {
+      "select_var": "Vælg Størrelse",
+      "select_more_var": "Flere Muligheder",
+      "quickadd_btn_more_var": "Se Mere",
+      "quickadd_btn": "Hurtig Shop",
+      "dropdown_head_title": "Vælg Størrelse",
+      "dropdown_guide": "Guide"
+    }
+  }
+}

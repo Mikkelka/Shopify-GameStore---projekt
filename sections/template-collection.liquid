@@ -1,0 +1,44 @@
+{{ "template-collection.css" | asset_url | stylesheet_tag }}
+
+<style>
+
+  .collection-con {}
+
+  .collection-header {
+    align-items: center;
+    display: flex;
+
+    height: 20rem;
+    justify-content: center;
+  }
+
+  .container {
+    flex-direction: column;
+  }
+</style>
+
+<div class="container">
+  <div class="collection-header">
+    <h1>
+      {{ collection.title }}
+    </h1>
+  </div>
+
+  <div class="collection-con grid grid-3 gap-2 grid-1-m">
+    {% for product in collection.products %}
+
+      <!-- render snippet -->
+      {% render "product-card", product: product %}
+
+    {% else %}
+      <p>No matches</p>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "collection Main",
+    "settings": []
+  }
+{% endschema %}

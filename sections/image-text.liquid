@@ -1,0 +1,96 @@
+<style>
+  .image-text {
+    background: radial-gradient(33.11% 106.18% at 58.1% 89.04%, rgba(18, 47, 89, 0.82) 22.4%, #0f0f1b 100%);
+    padding: 10rem 0;
+    clip-path: polygon(0 0, 100% 10%, 100% 100%, 0 90%);
+
+    margin: 3rem 0;
+  }
+
+  .image-con {
+    display: flex;
+    justify-content: center;
+  }
+
+  .image-con img {
+    width: 75%;
+  }
+
+  .text-con {
+  }
+
+  .text-con strong {
+    color: #ff5400;
+  }
+
+  @media screen and (max-width: 780px) {
+    .image-text {
+      padding: 4rem 0;
+      clip-path: polygon(0 0, 100% 5%, 100% 100%, 0 95%);
+      margin: 0rem 0;
+    }
+
+    .text-con {
+      text-align: center;
+    }
+  }
+</style>
+
+<div class="image-text">
+  <div class="container">
+    <div class="grid grid-2 gap-3 ai grid-1-m">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'Image' %}
+            <div class="image-con">
+              <img src="{{ block.settings.image | image_url: width: 1000 }}" alt="">
+            </div>
+
+          {% when 'Text' %}
+            <div class="text-con">
+              {{ block.settings.text }}
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "50 / 50",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "Image",
+      "name": "image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Paragraph"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "50 / 50"
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+{% endjavascript %}

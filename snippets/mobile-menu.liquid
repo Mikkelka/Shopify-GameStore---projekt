@@ -1,0 +1,38 @@
+<div class="mobile-menu">
+  {% comment %} make snippet {% endcomment %}
+
+  <div id="mobileMenu" class="drawer-left">
+    {% comment %} close {% endcomment %}
+    <div data-drawer-close class="drawer-close">
+      <i class="fa-solid fa-xmark fa-xl" style="color: #ffffff"></i>
+    </div>
+
+    {% comment %} menu {% endcomment %}
+    <nav class="mobile-menu">
+      <ul>
+        {% for link in linklists['game-nav'].links %} {% if link.links != blank
+        %}
+        <li class="has-submenu">
+          <a href="#">{{ link.title }}</a>
+          <ul>
+            {% for child_link in link.links %}
+            <li>
+              <a href="{{ child_link.url }}">
+                <i class="fa-brands fa-steam"></i> {{ child_link.title }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </li>
+        {% else %}
+        <li>
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        </li>
+        {% endif %} {% endfor %}
+      </ul>
+    </nav>
+  </div>
+
+  {% comment %} munu trigger {% endcomment %}
+  <div data-drawer-trigger="#mobileMenu" class="mobileMenu__trigger">☰</div>
+</div>

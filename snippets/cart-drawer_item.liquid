@@ -1,0 +1,32 @@
+<cart-item class="cart_item" data_itemId="{{ item.id }}" data_index="{{ forloop.index }}">
+  <div class="cart_item__inner">
+    <a class="cart_item__img" href="{{ item.url }}">
+      <img alt="{{ item.title | escape }}" loading="lazy" src="{{ item | image_url: width: 500 }}">
+    </a>
+
+    <div class="cart_item__content">
+      <span class="cart_item__content__titel">
+        {{ item.title }}
+      </span>
+      <span class="cart_item__content__platform"> Platform </span>
+
+      <div class="cart_item__content__inner">
+        <i class="fa-solid fa-trash fa-lg cart_item_remove"></i>
+
+        <div>
+          <input
+            class="cart_item__content__input"
+            min="0"
+            name="updates[]"
+            type="number"
+            value="{{ item.quantity }}"
+          >
+
+          <span class="cart_item__price">
+            {{ item.final_line_price | money }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</cart-item>

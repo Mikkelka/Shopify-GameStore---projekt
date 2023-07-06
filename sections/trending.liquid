@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="trending-main">
+    <div class="trending-head">
+      <h2>{{ section.settings.heading }}</h2>
+      <a href="">See all</a>
+    </div>
+
+    <div class="trending-products">
+      {% for product in section.settings.product_list %}
+        {% render 'product-card', product: product %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Trending",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "product_list",
+      "id": "product_list",
+      "label": "Products"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trending"
+    }
+  ]
+}
+{% endschema %}

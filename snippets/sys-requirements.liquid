@@ -1,0 +1,29 @@
+<style>
+  .req-con {
+    display: grid;
+    gap: 6px;
+  }
+
+  .req-con__inner {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+  }
+
+  .req-con__inner span:first-child {
+    opacity: 70%;
+  }
+</style>
+
+<div class="req-con">
+  {% for meta in metafield %}
+    <div class="req-con__inner">
+      {% assign requirements = meta | split: '-' %}
+
+      {% for req in requirements %}
+        <span>
+          {{ req }}
+        </span>
+      {% endfor %}
+    </div>
+  {% endfor %}
+</div>

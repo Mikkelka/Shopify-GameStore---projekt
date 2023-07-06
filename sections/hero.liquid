@@ -1,0 +1,103 @@
+<style>
+  .hero {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    height: 60vh;
+    max-height: 620px;
+    min-height: 550px;
+    position: relative;
+
+    /* Burde lave til classes til globel use */
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);
+  }
+
+  .picture {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .picture img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero .container {
+    z-index: 10;
+    color: white;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .price-tag {
+    font-size: 1.5rem;
+  }
+
+  @media screen and (max-width: 780px) {
+    .hero {
+      height: 40vh;
+      max-height: 500px;
+      min-height: 400px;
+
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 95%);
+    }
+  }
+</style>
+
+<div class="hero">
+  <div class="picture">
+    <img src="{{ section.settings.bg | image_url: width: 2000  }}" alt="">
+  </div>
+  <div class="container">
+    <h1 class="hero-title">{{ section.settings.product.title }}</h1>
+    <div class="hero-content">
+      {% render 'savings', product: section.settings.product %}
+      <div class="price-tag">
+        {{ section.settings.product.price | money_without_trailing_zeros }}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg",
+      "label": "Image"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero"
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+{% endjavascript %}

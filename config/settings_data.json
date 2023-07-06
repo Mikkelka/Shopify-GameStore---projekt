@@ -1,0 +1,17 @@
+{
+  "current": {
+    "free_shipping_price_dk": 30000,
+    "shipping_price_dk": 49,
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {}
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {}
+      }
+    },
+    "content_for_index": []
+  }
+}

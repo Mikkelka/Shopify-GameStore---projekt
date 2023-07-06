@@ -1,0 +1,30 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Webshop - Gaming",
+    "theme_version": "1.0.0",
+    "theme_author": "Mikkel",
+    "theme_documentation_url": "https:\/\/THEME_DOCUMENTATION_URL.com\/",
+    "theme_support_url": "https:\/\/THEME_SUPPORT_URL.com\/"
+  },
+  {
+    "name": "Shipping",
+    "settings": [
+      {
+        "type": "number",
+        "id": "free_shipping_price_dk",
+        "label": "Min. price for free shipping "
+      },
+      {
+        "type": "number",
+        "id": "shipping_price_dk",
+        "label": "Shipping price DK"
+      },
+      {
+        "type": "number",
+        "id": "shipping_price_eu",
+        "label": "Shipping price EU (not used)"
+      }
+    ]
+  }
+]

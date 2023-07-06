@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Webshop - Gaming</title>
+    <link rel="stylesheet" href="{{ 'main.css' | asset_url }}">
+    <link rel="stylesheet" href="{{ 'lightbox.css' | asset_url }}">
+    <script src="https://kit.fontawesome.com/41eab0f4ff.js" crossorigin="anonymous"></script>
+
+    {% comment %} fanzybox {% endcomment %}
+
+    {{ content_for_header }}
+  </head>
+
+  <body>
+    {% section 'header' %}
+
+    <div class="layout">
+      {{ content_for_layout }}
+    </div>
+
+    {% section 'footer' %}
+
+    <script src="{{ 'main.js' | asset_url }}" defer></script>
+    <script src="{{ 'lightbox-plus-jquery.js' | asset_url }}" defer></script>
+  </body>
+</html>

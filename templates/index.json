@@ -1,0 +1,145 @@
+{
+  "sections": {
+    "main": {
+      "type": "template-index",
+      "disabled": true,
+      "settings": {}
+    },
+    "39841383-1662-4a8c-b88f-b7644c4d900b": {
+      "type": "hero",
+      "settings": {
+        "bg": "shopify:\/\/shop_images\/12728.jpg",
+        "product": "marvels-spider-man-miles-morales"
+      }
+    },
+    "10104c74-67d9-43df-a900-ccca2f5a9140": {
+      "type": "trending",
+      "settings": {
+        "heading": "Trending",
+        "product_list": [
+          "marvels-spider-man-miles-morales",
+          "s-t-a-l-k-e-r-clear-sky",
+          "dead-space",
+          "god-of-war-ragnarok-ps5",
+          "atomic-heart",
+          "uncharted-legacy-of-thieves-collection"
+        ]
+      }
+    },
+    "c8ee656a-135f-4651-b59f-191b18b95346": {
+      "type": "image-text",
+      "blocks": {
+        "b0a48e34-bf80-4f06-b5d5-02bec5065498": {
+          "type": "Text",
+          "settings": {
+            "text": "<h2>Get the <strong>BEST <\/strong>games!<br\/>For the <strong>BEST <\/strong>prize! <\/h2><p>We allways try to give you the best prizes! <\/p>"
+          }
+        },
+        "754c729f-aff4-4cb3-a785-77c75c131de1": {
+          "type": "Image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/graf.png"
+          }
+        }
+      },
+      "block_order": [
+        "b0a48e34-bf80-4f06-b5d5-02bec5065498",
+        "754c729f-aff4-4cb3-a785-77c75c131de1"
+      ],
+      "settings": {}
+    },
+    "a2e87d23-3412-4ca6-914b-fff005893b50": {
+      "type": "trending",
+      "settings": {
+        "heading": "Pre-orders",
+        "product_list": [
+          "atomic-heart",
+          "dead-space",
+          "god-of-war-ragnarok-ps5",
+          "marvels-spider-man-miles-morales",
+          "s-t-a-l-k-e-r-clear-sky",
+          "uncharted-legacy-of-thieves-collection"
+        ]
+      }
+    },
+    "de875467-384c-43cc-9427-5b5a7f2a1b90": {
+      "type": "games-grid",
+      "blocks": {
+        "1c08b740-1b7b-45a3-9a6a-fc49f0316d10": {
+          "type": "type",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/62b446013f21f1a3a880318e_image_game_01_1.png",
+            "logo": "shopify:\/\/shop_images\/62b42b6c1ef620a7a9fb3dc4_image_4.png",
+            "text": "",
+            "button_link": ""
+          }
+        },
+        "457e3d90-4d80-4bb8-b172-d367d9af195d": {
+          "type": "type",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/62b438213ea0dd4e40aa228f_Rectangle_904.png",
+            "logo": "shopify:\/\/shop_images\/62b42c7acc1e5e11d925aa1d_image_5.png",
+            "text": "",
+            "button_link": ""
+          }
+        },
+        "3c1f8bd9-b391-4d18-aa6f-a259ebe23bb7": {
+          "type": "type",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/62b446507a3e5b97767cbeec_image_6_1_1.png",
+            "logo": "shopify:\/\/shop_images\/62b42e7970c5b803cf6c63c8_Mask_group.png",
+            "text": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "1c08b740-1b7b-45a3-9a6a-fc49f0316d10",
+        "457e3d90-4d80-4bb8-b172-d367d9af195d",
+        "3c1f8bd9-b391-4d18-aa6f-a259ebe23bb7"
+      ],
+      "settings": {}
+    },
+    "b5c8083b-ca0e-4ee0-b600-44b0eb1fd3ad": {
+      "type": "join-community",
+      "blocks": {
+        "0e9c4919-0721-44e3-92cb-dd809b5ce29f": {
+          "type": "Text",
+          "settings": {
+            "inline": "Get <strong>exclusive <\/strong>offers and promotions!"
+          }
+        },
+        "6d8c142e-2413-4290-9536-adb72592d225": {
+          "type": "Text",
+          "settings": {
+            "inline": "<strong>Quick <\/strong>buy & write game reviews"
+          }
+        },
+        "c7559ad2-57dd-44f6-9e63-ddd2e4adc2e5": {
+          "type": "Text",
+          "settings": {
+            "inline": "Meet new <strong>people<\/strong>"
+          }
+        }
+      },
+      "block_order": [
+        "0e9c4919-0721-44e3-92cb-dd809b5ce29f",
+        "6d8c142e-2413-4290-9536-adb72592d225",
+        "c7559ad2-57dd-44f6-9e63-ddd2e4adc2e5"
+      ],
+      "settings": {
+        "heading": "Join the <strong>Community<\/strong>",
+        "image": "shopify:\/\/shop_images\/money-PhotoRoom_1.png"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "39841383-1662-4a8c-b88f-b7644c4d900b",
+    "10104c74-67d9-43df-a900-ccca2f5a9140",
+    "c8ee656a-135f-4651-b59f-191b18b95346",
+    "a2e87d23-3412-4ca6-914b-fff005893b50",
+    "de875467-384c-43cc-9427-5b5a7f2a1b90",
+    "b5c8083b-ca0e-4ee0-b600-44b0eb1fd3ad"
+  ]
+}

@@ -1,0 +1,37 @@
+<style></style>
+
+<div class="container">
+  <div>
+    {% for block in section.blocks %}
+      <img src="{{ block.settings.image   }}" alt="">
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "images carousel",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "type",
+      "name": "name",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "images carousel"
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+{% endjavascript %}

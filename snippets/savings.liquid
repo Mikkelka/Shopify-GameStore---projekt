@@ -1,0 +1,7 @@
+{% if product.compare_at_price %}
+  {% assign original_price = product.compare_at_price %}
+  {% assign sale_price = product.price %}
+  {% assign discount_percentage = original_price | minus: sale_price | times: 100 | divided_by: original_price %}
+
+  <div class="savings-lable">{{ discount_percentage }}%</div>
+{% endif %}

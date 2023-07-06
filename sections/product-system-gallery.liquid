@@ -1,0 +1,365 @@
+<style>
+  .product-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+
+    width: 100%;
+  }
+
+  .product-text-con {
+    display: grid;
+    gap: 4.5rem;
+  }
+
+  .product__small-dec {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .product__small-dec__text {
+    padding-top: 1rem;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+  }
+
+  .product-text-con__sys {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .product-gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 17px;
+    height: fit-content;
+  }
+
+  .product-gallery a:first-child,
+  .product-gallery light-box:first-child,
+  .product-gallery img:first-child {
+    grid-column: 1 / span 2;
+  }
+
+  .product-gallery a {
+  }
+
+  .product-gallery a img,
+  .product-gallery img {
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  .product-gallery__video {
+    grid-column: 1 / span 2;
+  }
+
+  .product-gallery__video video {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+  }
+
+  .line-divider {
+    background-color: #a4a4a4;
+    width: 100%;
+    height: 2px;
+    margin-top: 1rem;
+    margin-bottom: 4px;
+    align-self: end;
+  }
+
+  .fancybox-image {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+  }
+
+
+  {% comment %} lightbox {% endcomment %}
+
+   .product-gallery__lightbox {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    padding: 8rem;
+    z-index: 100;
+    display: none;
+  }
+
+  .overlay-box {
+    width: 100%;
+    height: 100%;
+    background-color: #000000af;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .lightbox_content {
+    position: relative;
+    z-index: 200;
+    height: min-content;
+  }
+
+  .light_box-controls {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 110%;
+  }
+
+  .light_box-controls .left,
+  .light_box-controls .right {
+    cursor: pointer;
+  }
+
+
+  @media screen and (max-width: 780px) {
+
+   .product-gallery__lightbox {
+    padding: 2rem;
+  }
+
+  .product-info {
+    grid-template-columns:1fr;
+  }
+
+   .product-gallery {
+    order: 1;
+  }
+
+  .product-text-con {
+    order: 2;
+  }
+
+  }
+</style>
+
+<div class="container">
+  <div class="product-info">
+    <div class="product-text-con">
+      <div class="product__small-dec">
+        <div>
+          <h2>About This Game</h2>
+          <div class="product__small-dec__text">
+            {{ product.metafields.custom.small_description.value }}
+          </div>
+        </div>
+
+        {% render 'sys-requirements', metafield: product.metafields.custom.game_info.value %}
+      </div>
+
+      <div class="product-text-con__sys">
+        <h3>System Requirements</h3>
+
+        {% render 'sys-requirements', metafield: product.metafields.custom.system_requirements_.value %}
+
+        <h3>Minimum</h3>
+
+        {% render 'sys-requirements', metafield: product.metafields.custom.system_requirements_.value %}
+
+        <div class="line-divider"></div>
+      </div>
+    </div>
+
+    <div class="product-gallery">
+      {% for media in product.media %}
+        {% if forloop.index > 1 %}
+          <light-box>
+            <img
+              src="{{ media | image_url: width: 1000 }}"
+              data-lightbox-src="{{ media | image_url: width: 2000 }}"
+              alt=""
+            >
+          </light-box>
+        {% endif %}
+      {% endfor %}
+
+      <div class="product-gallery__lightbox">
+        <div class="overlay-box"></div>
+        <div class="lightbox_content">
+          <img src="" alt="" class="lightbox-image">
+          <div class="light_box-controls">
+            <div class="left">
+              <i class="fa-solid fa-circle-left fa-lg" style="color: #105ada;"></i>
+            </div>
+            <div class="right">
+              <i class="fa-solid fa-circle-right fa-lg" style="color: #105ada;"></i>
+            </div>
+          </div>
+          <div>X</div>
+        </div>
+      </div>
+
+      <div class="product-gallery__video">
+        {{
+          product.metafields.custom.video.value
+          | video_tag: autoplay: false, loop: true, muted: true, controls: true
+        }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  class lightBox extends HTMLElement {
+    constructor() {
+      super();
+      this.image = this.querySelector('img');
+      this.lightBoxImage = document.querySelector('.product-gallery__lightbox .lightbox-image');
+      this.lightBoxImage.src = this.image.dataset.lightboxSrc;
+      this.overlay = document.querySelector('.product-gallery__lightbox .overlay-box');
+
+      this.controls = document.querySelector('.product-gallery__lightbox .light_box-controls');
+      this.rightControl = this.controls.querySelector('.right');
+      this.leftControl = this.controls.querySelector('.left');
+
+      this.images = document.querySelectorAll('img[data-lightbox-src]');
+      this.currentImageIndex = Array.from(this.images).indexOf(this.image);
+
+      this.openLightbox();
+      this.closeLightBox();
+      this.navigateImages();
+    }
+
+    navigateImages() {
+      this.rightControl.addEventListener('click', () => {
+        this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
+        this.updateImage();
+      });
+
+      this.leftControl.addEventListener('click', () => {
+        this.currentImageIndex = (this.currentImageIndex - 1 + this.images.length) % this.images.length;
+        this.updateImage();
+      });
+    }
+
+    updateImage() {
+      const newImage = this.images[this.currentImageIndex];
+      const newSrc = newImage.dataset.lightboxSrc;
+      this.lightBoxImage.setAttribute('src', newSrc);
+    }
+
+    openLightbox() {
+      this.image.addEventListener('click', () => {
+        const newSrc = this.image.dataset.lightboxSrc;
+        this.lightBoxImage.setAttribute('src', newSrc);
+        document.querySelector('.product-gallery__lightbox').style.display = 'flex';
+      });
+    }
+
+    closeLightBox() {
+      this.overlay.addEventListener('click', () => {
+        document.querySelector('.product-gallery__lightbox').style.display = 'none';
+      });
+    }
+  }
+
+  window.customElements.define('light-box', lightBox);
+
+  /*
+
+  class Lightbox {
+    constructor(images) {
+      this.images = images;
+      this.currentIndex = 0;
+      this.lightbox = document.createElement('div');
+      this.lightbox.className = 'lightbox';
+      this.lightbox.innerHTML = `
+      <span class="close">&times;</span>
+      <a class="prev" onclick="lightbox.changeImage(-1)">&#10094;</a>
+      <a class="next" onclick="lightbox.changeImage(1)">&#10095;</a>
+      <img src="" alt="" class="lightbox-image">
+    `;
+      document.body.appendChild(this.lightbox);
+      this.lightboxImage = this.lightbox.querySelector('.lightbox-image');
+      this.prevButton = this.lightbox.querySelector('.prev');
+      this.nextButton = this.lightbox.querySelector('.next');
+      this.closeButton = this.lightbox.querySelector('.close');
+      this.images.forEach((image, index) => {
+        image.addEventListener('click', () => {
+          this.showLightbox(index);
+        });
+      });
+      this.closeButton.addEventListener('click', () => {
+        this.hideLightbox();
+      });
+      this.prevButton.addEventListener('click', () => {
+        this.changeImage(-1);
+      });
+      this.nextButton.addEventListener('click', () => {
+        this.changeImage(1);
+      });
+    }
+
+    showLightbox(index) {
+      this.currentIndex = index;
+      this.lightboxImage.src = this.images[this.currentIndex].src;
+      this.lightboxImage.alt = this.images[this.currentIndex].alt;
+      this.lightbox.style.display = 'block';
+      this.togglePrevNext();
+    }
+
+    hideLightbox() {
+      this.lightbox.style.display = 'none';
+    }
+
+    changeImage(n) {
+      this.currentIndex += n;
+      if (this.currentIndex >= this.images.length) {
+        this.currentIndex = 0;
+      } else if (this.currentIndex < 0) {
+        this.currentIndex = this.images.length - 1;
+      }
+      console.log(`Changing image to index ${this.currentIndex} with URL ${this.images[this.currentIndex].src}`);
+      this.lightboxImage.src = this.images[this.currentIndex].src;
+      this.lightboxImage.alt = this.images[this.currentIndex].alt;
+      this.togglePrevNext();
+    }
+
+    togglePrevNext() {
+      if (this.currentIndex === 0) {
+        this.prevButton.style.display = 'none';
+      } else {
+        this.prevButton.style.display = 'block';
+      }
+      if (this.currentIndex === this.images.length - 1) {
+        this.nextButton.style.display = 'none';
+      } else {
+        this.nextButton.style.display = 'block';
+      }
+    }
+  }
+
+  // Usage
+  const images = document.querySelectorAll('.product-image');
+  const lightbox = new Lightbox(images);
+  */
+</script>
+
+{% schema %}
+{
+  "name": "product-system-gallery",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "type",
+      "name": "name",
+      "settings": []
+    }
+  ],
+  "presets": [
+    {
+      "name": "product-system-gallery"
+    }
+  ]
+}
+{% endschema %}

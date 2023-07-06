@@ -1,0 +1,56 @@
+{%- liquid
+  assign free_shipping = settings.free_shipping_price_dk | times: 1.0
+
+  assign cart_total = cart.total_price | times: 1.0
+
+  assign bar_procent = cart.total_price | divided_by: free_shipping | times: 100.0 | at_most: 100
+  assign price_dif = free_shipping | minus: cart_total | money
+
+  capture text
+    echo '<b>' | append: price_dif | append: '</b>'
+  endcapture
+
+  assign state = 'general.free_gift.missing_html' | t: dif: text
+
+  if bar_procent >= 100
+    assign state = 'cart.free_shipping.free_shipping_text' | t
+    assign freeShipClass = 'cart_Progress_innerbar--free'
+  endif
+-%}
+
+<div class="cart_Progress__con">
+  <span class="cart_Progress__text">
+    {{ state }}
+  </span>
+
+  <div class="cart_Progress_bar">
+    <div class="cart_Progress_innerbar {{freeShipClass}} "></div>
+  </div>
+</div>
+
+<style>
+   .cart_Progress__con {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 15px;
+    box-shadow: 0 0px 9px 3px rgba(0,0,0,0.125);
+  }
+
+  .cart_Progress__text {
+    font-size: 0.9em;
+    line-height: 18px;
+    font-weight: 500;
+    margin-bottom: 0.5em;
+  }
+
+  .cart_Progress_bar {
+    width: 100%;
+    border: 1px solid #e2e2e2;
+  }
+
+  .cart_Progress_innerbar {
+    height: 8px;
+    background-color: black;
+    width: {{ bar_procent }}%;
+  }
+</style>
