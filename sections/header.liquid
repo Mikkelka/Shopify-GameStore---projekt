@@ -11,8 +11,8 @@
     gap: .5rem;
     padding: .5rem 1rem;
   }
-
-  .header-container a {
+  
+.header-container a {
     color: white;
     text-decoration: none;
   }
@@ -79,13 +79,14 @@
     display: none;
   }
 
+
   @media screen and (max-width: 780px) {
 
     .header__menu {
       display: none;
     }
-
-    .mobile-menu {
+    
+.mobile-menu {
       display: flex;
     }
 
@@ -94,13 +95,13 @@
 
 <header>
   <div class="header-container">
-
+    
     {% comment %} mobile menu {% endcomment %}
     {% render "mobile-menu" %}
 
     <div class="header__logo">
       <a href="/">
-        <h1>KeyZone</h1>
+        <h1 class="logo">KeyZone</h1>
       </a>
     </div>
 

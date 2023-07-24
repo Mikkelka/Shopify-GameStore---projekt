@@ -1,15 +1,15 @@
-<div class="prodcut-card">
-  <a class="prodcut-card__url" href="{{ product.url }}"></a>
+<div class="product-card">
+  <a class="product-card__url" href="{{ product.url }}"></a>
   <div class="prodcut-img-con">
     <img
-      class="prodcut-card__img"
+      class="product-card__img"
       src="{{ product.featured_image | image_url: width: 600 }}"
       alt=""
     >
     {% render 'savings', product: product %}
   </div>
 
-  <div class="prodcut-card__content">
+  <div class="product-card__content">
     <span>{{ product.title }}</span>
     <span>{{ product.price | money_without_trailing_zeros }}</span>
   </div>

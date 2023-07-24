@@ -1,19 +1,19 @@
-{{ "template-collection.css" | asset_url | stylesheet_tag }}
+{{ 'template-collection.css' | asset_url | stylesheet_tag }}
 
 <style>
-
-  .collection-con {}
-
-  .collection-header {
-    align-items: center;
-    display: flex;
-
-    height: 20rem;
-    justify-content: center;
-  }
-
   .container {
     flex-direction: column;
+  }
+
+  .collection-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 20rem;
+  }
+
+  .collection-con {
   }
 </style>
 
@@ -26,9 +26,8 @@
 
   <div class="collection-con grid grid-3 gap-2 grid-1-m">
     {% for product in collection.products %}
-
       <!-- render snippet -->
-      {% render "product-card", product: product %}
+      {% render 'product-card', product: product %}
 
     {% else %}
       <p>No matches</p>
@@ -37,8 +36,11 @@
 </div>
 
 {% schema %}
-  {
-    "name": "collection Main",
-    "settings": []
-  }
+{
+  "name": "collection Main",
+  "settings": []
+}
 {% endschema %}
+
+{% javascript %}
+{% endjavascript %}

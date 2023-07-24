@@ -428,4 +428,4 @@ document.addEventListener("DOMContentLoaded", () => {
   if (cartOverlay) cartOverlay.addEventListener("click", toggle_cart_drawer);
   if (cartClose) cartClose.addEventListener("click", toggle_cart_drawer);
 });
-
+ */

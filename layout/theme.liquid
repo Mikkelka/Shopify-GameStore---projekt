@@ -2,29 +2,27 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <title>Webshop - Gaming</title>
-    <link rel="stylesheet" href="{{ 'main.css' | asset_url }}">
-    <link rel="stylesheet" href="{{ 'lightbox.css' | asset_url }}">
-    <script src="https://kit.fontawesome.com/41eab0f4ff.js" crossorigin="anonymous"></script>
-
-    {% comment %} fanzybox {% endcomment %}
-
+    <link href="{{ 'main.css' | asset_url }}" rel="stylesheet">
+    <script crossorigin="anonymous" src="https://kit.fontawesome.com/41eab0f4ff.js"></script>
     {{ content_for_header }}
   </head>
 
   <body>
-    {% section 'header' %}
+    {% section "header" %}
 
     <div class="layout">
       {{ content_for_layout }}
     </div>
 
-    {% section 'footer' %}
+    {% section "footer" %}
 
-    <script src="{{ 'main.js' | asset_url }}" defer></script>
-    <script src="{{ 'lightbox-plus-jquery.js' | asset_url }}" defer></script>
+    <script defer src="{{ 'main.js' | asset_url }}"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script defer src="{{ 'gsap.js' | asset_url }}"></script>
   </body>
 </html>
