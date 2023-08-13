@@ -4,21 +4,100 @@
     <meta charset="UTF-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
     <title>Webshop - Gaming</title>
     <link href="{{ 'main.css' | asset_url }}" rel="stylesheet">
     <script crossorigin="anonymous" src="https://kit.fontawesome.com/41eab0f4ff.js"></script>
     {{ content_for_header }}
+
+
+    <style>
+
+      #blob {
+        animation: rotate 20s infinite;
+        aspect-ratio: 1;
+        background: linear-gradient(to right, rgb(26, 29, 211), rgb(221, 151, 21));
+        background-color: white;
+        border-radius: 50%;
+        height: 34vmax;
+        left: 50%;
+        opacity: 0.8;
+        position: absolute;
+        top: 50%;
+        translate: -50% -50%;
+      }
+
+      #blur {
+        height: 100%;
+        position: fixed;
+        width: 100%;
+        z-index: 2;
+        backdrop-filter: blur(12vmax);
+      }
+
+      .shopify-section {
+        z-index: 3;
+      }
+
+      @keyframes rotate {
+
+        50% {
+          scale: 1 1.5;
+        }
+
+        from {
+          rotate: 0;
+        }
+
+        to {
+          rotate: 360deg;
+        }
+      }
+
+      @media(max-width: 780px) {
+        #blob {
+          display: none;
+        }
+
+      }
+
+      body {
+        overflow-x: hidden;
+        z-index: 1;
+      }
+    </style>
+
   </head>
 
   <body>
     {% section "header" %}
+
+    <div id="blob"></div>
+    <div id="blur"></div>
 
     <div class="layout">
       {{ content_for_layout }}
     </div>
 
     {% section "footer" %}
+
+    <script>
+      const blob = document.getElementById ('blob');
+
+      window.onpointermove = function (event) {
+        const {
+          pageX,
+          pageY
+        } = event;
+
+        blob.animate ({
+          left: `${pageX}px`,
+          top: `${pageY}px`
+        }, {
+          duration: 3000,
+          fill: 'forwards'
+        });
+      };
+    </script>
 
     <script defer src="{{ 'main.js' | asset_url }}"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
